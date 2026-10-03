@@ -1,0 +1,16 @@
+{
+  "7":{"inputs":{"filename_prefix":"storytools_lineart","images":["14",0]},"class_type":"SaveImage","_meta":{"title":"Save Image"}},
+  "10":{"inputs":{"text":"identity-consistent family comic panel, preserve the character face, hair, clothing and accessories, preserve the reference composition and environment, clean line art, watercolor texture","clip":["15",1]},"class_type":"CLIPTextEncode","_meta":{"title":"Positive Prompt"}},
+  "11":{"inputs":{"text":"low quality, blurry, deformed, bad anatomy, extra limbs, mutated, watermark, text, logo, signature","clip":["15",1]},"class_type":"CLIPTextEncode","_meta":{"title":"Negative Prompt"}},
+  "12":{"inputs":{"seed":1,"steps":28,"cfg":6.5,"sampler_name":"dpmpp_2m","scheduler":"karras","denoise":1,"model":["19",0],"positive":["23",0],"negative":["23",1],"latent_image":["13",0]},"class_type":"KSampler","_meta":{"title":"KSampler - Lineart"}},
+  "13":{"inputs":{"width":1024,"height":1024,"batch_size":1},"class_type":"EmptyLatentImage","_meta":{"title":"Empty Latent"}},
+  "14":{"inputs":{"samples":["12",0],"vae":["15",2]},"class_type":"VAEDecode","_meta":{"title":"VAE Decode"}},
+  "15":{"inputs":{"ckpt_name":"animagine-xl-3.1.safetensors"},"class_type":"CheckpointLoaderSimple","_meta":{"title":"Load Checkpoint"}},
+  "16":{"inputs":{"image":"storytools-reference.png"},"class_type":"LoadImage","_meta":{"title":"Reference Image"}},
+  "18":{"inputs":{"model":["15",0],"preset":"PLUS FACE (portraits)"},"class_type":"IPAdapterUnifiedLoader","_meta":{"title":"IP-Adapter Plus Face"}},
+  "19":{"inputs":{"model":["18",0],"ipadapter":["18",1],"image":["16",0],"weight":0.85,"weight_type":"linear","start_at":0,"end_at":1,"combine_embeds":"average","embeds_scaling":"K+V"},"class_type":"IPAdapterAdvanced","_meta":{"title":"Identity Conditioning"}},
+  "20":{"inputs":{"image":["16",0],"coarse":"disable","resolution":1024},"class_type":"LineArtPreprocessor","_meta":{"title":"Lineart Control"}},
+  "21":{"inputs":{"control_net_name":"controlnet-union-sdxl-1.0\\diffusion_pytorch_model.safetensors"},"class_type":"ControlNetLoader","_meta":{"title":"ControlNet Union SDXL"}},
+  "22":{"inputs":{"control_net":["21",0],"type":"hed/pidi/scribble/ted"},"class_type":"SetUnionControlNetType","_meta":{"title":"Union Type Lineart"}},
+  "23":{"inputs":{"positive":["10",0],"negative":["11",0],"control_net":["22",0],"image":["20",0],"strength":0.45,"start_percent":0,"end_percent":0.8},"class_type":"ControlNetApplyAdvanced","_meta":{"title":"Lineart Conditioning"}}
+}
